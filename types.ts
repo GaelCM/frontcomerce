@@ -47,3 +47,15 @@ export type Product = {
     updatedAt: string; // ISO 8601 date string
     publishedAt: string; // ISO 8601 date string
   };
+
+  export type Category={
+    id: number;
+    documentId: string;
+    categoryName: string;
+    categoryID: string;
+    slug: string;
+    createdAt: string; // ISO 8601 date string
+    updatedAt: string; // ISO 8601 date string
+    publishedAt: string; // ISO 8601 date string
+    categoryImage:ProductImage
+  }

@@ -5,18 +5,25 @@ import { Product } from "@/types";
 import { Carousel, CarouselContent, CarouselItem } from "./ui/carousel";
 import Autoplay from "embla-carousel-autoplay";
 import Image from "next/image";
+import Link from "next/link";
+import { useState } from "react";
 
 
 export function SlideTrendProducts({result}:{result:Product[]|undefined}) {
+
+    const [isExpanded, setIsExpanded] = useState(false);
+    const [imagen, setImagen] = useState("");
+
     return(
-        <Carousel plugins={[Autoplay({delay: 2000,})]}>
+        <>
+            <Carousel plugins={[Autoplay({delay: 2000,})]}>
             <CarouselContent>
             {result?.map((product)=>(
                 <CarouselItem key={product.id} className="md:basis-1/2 lg:basis-1/3 flex justify-center">            
                 <div className="w-[75%] max-w-sm bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
-                    <a href="#" className="flex justify-center">
-                        <Image src={`${process.env.NEXT_PUBLIC_API_URL}${product.productImage[0].url}`} alt="" width={200} height={100} className="p-5" priority ></Image>
-                    </a>
+                    <Link href="#" className="flex justify-center" onClick={() => {setImagen(`${process.env.NEXT_PUBLIC_API_URL}${product.productImage[0].url}`); setIsExpanded(true);}}>
+                        <Image src={`${process.env.NEXT_PUBLIC_API_URL}${product.productImage[0].url}`} alt="" width={200} height={100} className="p-5" priority  ></Image>
+                    </Link>
                     <div className="px-5 pb-5">
                         <a href="#">
                             <h5 className="text-xl font-semibold tracking-tight text-gray-900 dark:text-white">{product.productName}</h5>
@@ -55,5 +62,31 @@ export function SlideTrendProducts({result}:{result:Product[]|undefined}) {
             ))}
             </CarouselContent>
             </Carousel>
+
+            {isExpanded && (
+                <div
+                style={{
+                    position: "fixed",
+                    top: 0,
+                    left: 0,
+                    width: "100vw",
+                    height: "auto",
+                    backgroundColor: "rgba(0, 0, 0, 0.8)",
+                    display: "flex",
+                    justifyContent: "center",
+                    alignItems: "center",
+                }}
+                onClick={() => setIsExpanded(false)} // Cerrar modal al hacer clic
+                >
+                <Image
+                    src={imagen} // Imagen expandida
+                    alt="Expanded Image"
+                    width={800} // Tamaño de la imagen expandida
+                    height={600}
+                />
+                </div>
+            )}
+
+        </>     
     )
 }
