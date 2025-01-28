@@ -12,7 +12,7 @@ export default async function TrendProducts() {
 
      //const {result}=useGetBestProducts()
       const result=await getBestProducts()
-     console.log(result)
+     //console.log(result)
 
     return (
         <div>

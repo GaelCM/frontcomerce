@@ -59,3 +59,15 @@ export type Product = {
     publishedAt: string; // ISO 8601 date string
     categoryImage:ProductImage
   }
+
+  export type Schema = {
+    uid: string;
+    apiID: string;
+    schema: {
+      attributes: {
+        Origen: {
+          enum: any[];
+        };
+      };
+    };
+  }

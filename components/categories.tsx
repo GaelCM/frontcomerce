@@ -9,7 +9,7 @@ export default async function Categories() {
     return (
         <>  
             {categories?.map((category)=>(
-                <Link href={`/categories/${category?.slug}`} key={category.slug}>
+                <Link href={`/categorias/${category.slug}`} key={category.slug}>
                 <div className="da relative flex  flex-col  overflow-hidden h-[70dvh]">
                 <div className="absolute inset-0 bg-center"></div>
                 <div className="group relative m-0 flex h-[70dvh] w-96 rounded-xl shadow-xl ring-gray-900/5 sm:mx-auto sm:max-w-lg">
