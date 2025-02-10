@@ -17,7 +17,7 @@ export const getCategories = async ():Promise<Category[]|undefined>=> {
 }
 
 
-export const getCategoryProduct = async (slug:string):Promise<Product[]>=> {
+export const getProductsByCategory = async (slug:string):Promise<Product[]>=> {
     const url=`${process.env.NEXT_PUBLIC_API_URL}/api/products?populate=*&filters[category][slug][$eq]=${slug}`;
     await new Promise((resolve) => setTimeout(resolve, 2000)); // Simulate a slow network    
     const response = await fetch(url,{cache: "no-cache"})

@@ -1,4 +1,4 @@
-import { getCategoryProduct } from "@/api/getCategories";
+import { getProductsByCategory } from "@/api/getCategories";
 import { Separator } from "@/components/ui/separator";
 import ProductsPage from "./components/products";
 import { getProductsFilters } from "@/api/getProductFilters";
@@ -9,7 +9,7 @@ export default async function categorySlug({params}:{params:{slug:string}}) {
 
     const {slug} = await params;
 
-    const productsByCategory = await getCategoryProduct(slug); 
+    const productsByCategory = await getProductsByCategory(slug); 
     const filters = await getProductsFilters();
 
     return (
