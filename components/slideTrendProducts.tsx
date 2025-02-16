@@ -7,12 +7,28 @@ import Autoplay from "embla-carousel-autoplay";
 import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
+import { useCarrito } from "@/hooks/CarritoHook";
+import { useToast } from "@/hooks/use-toast";
+
 
 
 export function SlideTrendProducts({result}:{result:Product[]|undefined}) {
 
     const [isExpanded, setIsExpanded] = useState(false);
     const [imagen, setImagen] = useState("");
+    const {setItems}=useCarrito()
+    const {toast}=useToast()
+
+    const addCarrito=(product:Product)=>{
+        const res=setItems(product)
+        if(!res){
+            toast({
+                title: "Ya se encuentra en tu carrito",
+                className:"bg-red-500 text-white rounded"
+              });
+        }
+
+    }
 
     return(
         <>
@@ -53,7 +69,7 @@ export function SlideTrendProducts({result}:{result:Product[]|undefined}) {
                         </div>
                         <div className="flex items-center justify-between">
                             <span className="text-3xl font-bold text-gray-900 dark:text-white">{`$${product.price}`}</span>
-                            <a href="#" className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm md:text-xs px-2 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Agregar al carrito</a>
+                            <button onClick={()=>addCarrito(product)} className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm md:text-xs px-2 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Agregar al carrito</button>
                         </div>
                     </div>
                 </div>

@@ -5,8 +5,6 @@ import { getBestProducts } from "@/api/getBestProductsF";
 import { SlideTrendProducts } from "./slideTrendProducts";
 
 
-
-
 //import { useGetBestProducts } from "@/api/getBestProducts";
 export default async function TrendProducts() {
 

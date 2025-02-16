@@ -3,6 +3,7 @@ import "./globals.css";
 import Navbar from "@/components/navbar";
 import Footer from "@/components/footer";
 import { ThemeProvider } from "@/components/theme-provider";
+import { Toaster } from "@/components/ui/toaster";
 
 
 
@@ -29,6 +30,7 @@ export default function RootLayout({
           {children}
           <Footer></Footer>
         </ThemeProvider>
+        <Toaster />
       </body>
     </html>
   );

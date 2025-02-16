@@ -3,11 +3,15 @@
 import Link from "next/link"
 import { useRouter } from "next/navigation"
 import { ModeToggle } from "./toogleTheme";
-import { CircleUserRound, ShoppingCart } from "lucide-react";
+import { BaggageClaim, CircleUserRound, ShoppingCart, Heart} from "lucide-react";
+import { useCarrito } from "@/hooks/CarritoHook";
+import { useFavoritesList } from "@/hooks/FavoritesHook";
 
 export default function Navbar(){
 
     const router=useRouter();
+    const {carrito} =useCarrito()
+    const {favoritesList}=useFavoritesList()
 
     return(
         <header>
@@ -21,7 +25,26 @@ export default function Navbar(){
                         <ModeToggle />
                         <Link href="#" className="text-white ml-2 bg-black hover:bg-primary-800 focus:ring-4 focus:ring-primary-300 font-medium rounded-lg text-sm px-4 lg:px-5 py-2 lg:py-2.5 mr-2 dark:bg-secondary dark:hover:bg-primary-700 focus:outline-none dark:focus:ring-primary-800">Iniciar Sesion</Link>
                         
-                        <ShoppingCart size={20} className="cursor-pointer" onClick={()=>{console.log("carrito")}}></ShoppingCart>                                       
+                        {carrito.length==0?
+                            <ShoppingCart size={20} className="cursor-pointer" onClick={()=>{router.push("/carrito")}}></ShoppingCart>
+                            :(
+                            <div className="flex gap-1 m-2" onClick={()=>{router.push("/carrito")}} >
+                                <BaggageClaim size={20} className="cursor-pointer"></BaggageClaim>
+                                <span>{carrito.length}</span>
+                            </div>
+                            )
+                        }
+                        {favoritesList.length==0?
+                            <Heart size={20} className="cursor-pointer" onClick={()=>{router.push("/favorites")}}></Heart>
+                            :(
+                            <div className="flex gap-1" onClick={()=>{router.push("/favorites")}} >
+                                <Heart size={20} className="cursor-pointer"></Heart>
+                                <span>{favoritesList.length}</span>
+                            </div>
+                            )
+                        }
+
+
                         <CircleUserRound size={20} className="cursor-pointer mx-2"></CircleUserRound>           
                         <button data-collapse-toggle="mobile-menu-2" type="button" className="inline-flex items-center p-2 ml-1 text-sm text-gray-500 rounded-lg lg:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600" aria-controls="mobile-menu-2" aria-expanded="false">
                             <span className="sr-only">Open main menu</span>
